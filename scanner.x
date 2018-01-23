@@ -1,5 +1,5 @@
 {
-module Main (main) where
+module Scanner where
 }
 
 %wrapper "basic"
@@ -11,6 +11,8 @@ tokens :-
 
   $white+				;
   "--".*				;
+  "SELECT"              { \s -> Select }
+  "select"              { \s -> select }
   let					{ \s -> Let }
   in					{ \s -> In }
   $digit+				{ \s -> Int (read s) }
@@ -26,10 +28,9 @@ data Token =
 	In  		|
 	Sym Char	|
 	Var String	|
-	Int Int
+	Int Int     |
+    Select
 	deriving (Eq,Show)
 
-main = do
-  s <- getContents
-  print (alexScanTokens s)
+
 }
