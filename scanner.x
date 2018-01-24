@@ -11,10 +11,10 @@ tokens :-
 
   $white+                               ;
   "--".*                                ;
-  "SELECT"                              { \s -> Select }
-  "select"                              { \s -> select }
-  "WHERE"                               { \s -> Where }
-  "where"                               { \s -> Where }
+  "SELECT"                              { \s -> TSelect }
+  "select"                              { \s -> TSelect }
+  "WHERE"                               { \s -> TWhere }
+  "where"                               { \s -> TWhere }
   let                                   { \s -> Let }
   in                                    { \s -> In }
   $digit+                               { \s -> Int (read s) }
@@ -31,8 +31,8 @@ data Token =
     Sym Char    |
     Var String  |
     Int Int     |
-    Select      |
-    Where
+    TSelect      |
+    TWhere
     deriving (Eq,Show)
 
 }

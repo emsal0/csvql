@@ -7,16 +7,21 @@ import Scanner
 %tokentype { Token }
 
 %token
-    "select"            { TSelect }
+    select            { TSelect }
 %%
 
 Program :
-    Select
+    SelectStatement
 
-Select:
-    "select"
+SelectStatement :
+    select
 
 {
+
+data Program = Program SelectStatement deriving (Show, Eq)
+
+data SelectStatement = SelectStatement deriving (Show, Eq)
+
 main = do 
     putStrLn "done"
 }
