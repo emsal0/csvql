@@ -10,13 +10,13 @@ import Scanner
     "select"            { TSelect }
 %%
 
-Program :
-    Select
-
-Select:
-    "select"
+Select :
+    "select"            { SSelect }
 
 {
+
+data SSelect = SSelect deriving Show
+
 main = do 
     putStrLn "done"
 }
