@@ -1,5 +1,5 @@
 {
-module Scanner
+module Scanner where
 }
 
 %wrapper "basic"
