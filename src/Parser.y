@@ -1,5 +1,5 @@
 {
-module Main where
+module Parser where
 import Scanner
 }
 
@@ -17,7 +17,5 @@ Select :
 
 data SSelect = SSelect deriving Show
 
-main = do 
-    putStrLn "done"
 }
 
