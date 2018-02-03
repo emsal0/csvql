@@ -15,12 +15,14 @@ tokens :-
     select                                            { \s -> TSelect }
     WHERE                                             { \s -> TWhere }
     where                                             { \s -> TWhere }
+    FROM                                              { \s -> TFrom }
+    from                                              { \s -> TFrom }
     let                                               { \s -> Let }
     in                                                { \s -> In }
     $digit+                                           { \s -> Int (read s) }
     [\< '\<\=' \> '\>\=' \= \+ \- \* \/ \(\)]         { \s -> Sym (head s) }
     $alpha [$alpha $digit \_ \']*                     { \s -> Var s }
-    \. [$alpha $digit \_ \']*                         { \s -> FieldRef s }
+    \. [$alpha $digit \_ \']*                         { \s -> FieldRef (tail s) }
     
 {
 -- Each action has type :: String -> Token
@@ -34,6 +36,7 @@ data Token =
     FieldRef String         |
     Int Int                 |
     TSelect                 |
+    TFrom                   |
     TWhere deriving (Eq,Show)
 
 }

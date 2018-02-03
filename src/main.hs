@@ -1,5 +1,7 @@
 module Main where
 import Parser
+import Scanner
 
 main = do 
-    putStrLn "done"
+    s <- getContents
+    print (alexScanTokens s)
