@@ -13,28 +13,52 @@ import Scanner
     "From"              { TFrom }
     "*"                 { TAll }
     field               { TVar $$ }
+    sym                 { TSym $$ }
+    int                 { TInt $$ }
+    ref                 { TFieldRef $$}
 %%
 
 Query :
-    "Select" SelectExpr FromExpr    { Query $2 $3 }
+    "Select" SelectExpr FromExpr                { Query $2 $3 }
+    | "Select" SelectExpr FromExpr WhereExpr    { FilteredQuery $2 $3 $4 }
 
 
 SelectExpr :
-    field                           { ExpField $1 }
-    | "*"                           { ExpAll }
+    FieldExpr                       { SelectField $1 }
+    | "*"                           { SelectAll }
 
 FromExpr:
     "From" field                    { FromExp $2 }
+
+WhereExpr:
+    "Where" Clause                  { WhereExp $2 }
+
+Clause:
+    FieldExpr sym int               { Clause $1 $2 $3 }
+
+FieldExpr:
+    field                           { FieldExp $1 }
+    | FieldExpr ref                 { FieldRefExp $1 $2 }
 
 {
 
 parseError :: [Token] -> a
 parseError _ = error "Parse error"
 
-data Query = Query Exp FromExp deriving (Show, Eq)
-data Exp = ExpField String | ExpAll
+data Query = Query SelectExp FromExp
+    | FilteredQuery SelectExp FromExp WhereExp
     deriving (Show, Eq)
+
+data SelectExp = SelectField FieldExp | SelectAll
+    deriving (Show, Eq)
+
 data FromExp = FromExp String deriving (Show, Eq)
+
+data WhereExp = WhereExp Clause deriving (Show, Eq)
+
+data Clause = Clause FieldExp String Int deriving (Show, Eq)
+
+data FieldExp = FieldExp String | FieldRefExp FieldExp String deriving (Show, Eq)
 
 }
 
