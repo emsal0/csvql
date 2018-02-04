@@ -10,29 +10,31 @@ import Scanner
 %token
     "Select"            { TSelect }
     "Where"             { TWhere }
+    "From"              { TFrom }
     "*"                 { TAll }
     field               { TVar $$ }
 %%
 
 Query :
-    Select SelectExpr               { Query $1 $2 }
+    "Select" SelectExpr FromExpr    { Query $2 $3 }
 
-Select :
-    "Select"                        { SSelect }
 
 SelectExpr :
     field                           { ExpField $1 }
     | "*"                           { ExpAll }
+
+FromExpr:
+    "From" field                    { FromExp $2 }
 
 {
 
 parseError :: [Token] -> a
 parseError _ = error "Parse error"
 
-data Query = Query SSelect Exp deriving (Show, Eq)
-data SSelect = SSelect deriving (Show, Eq)
+data Query = Query Exp FromExp deriving (Show, Eq)
 data Exp = ExpField String | ExpAll
     deriving (Show, Eq)
+data FromExp = FromExp String deriving (Show, Eq)
 
 }
 
