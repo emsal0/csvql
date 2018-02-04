@@ -14,26 +14,28 @@ tokens :-
     SELECT | select                                   { \s -> TSelect }
     WHERE | where                                     { \s -> TWhere }
     FROM | from                                       { \s -> TFrom }
-    let                                               { \s -> Let }
-    in                                                { \s -> In }
-    $digit+                                           { \s -> Int (read s) }
-    \<\= | \>\= | [\>\<\=\+\-\*\/\(\)]                { \s -> Sym s }
-    $alpha [$alpha $digit \_ \']*                     { \s -> Var s }
-    \. [$alpha $digit \_ \']*                         { \s -> FieldRef (tail s) }
+    let                                               { \s -> TLet }
+    in                                                { \s -> TIn }
+    $digit+                                           { \s -> TInt (read s) }
+    \<\= | \>\= | [\>\<\=\+\-\*\/\(\)]                { \s -> TSym s }
+    $alpha [$alpha $digit \_ \']*                     { \s -> TVar s }
+    \*                                                { \s -> TAll }
+    \. [$alpha $digit \_ \']*                         { \s -> TFieldRef (tail s) }
 
 {
 -- Each action has type :: String -> Token
 
 -- The token type:
 data Token =
-    Let                     |
-    In                      |
-    Sym String              |
-    Var String              |
-    FieldRef String         |
-    Int Int                 |
-    TSelect                 |
-    TFrom                   |
+    TLet                     |
+    TIn                      |
+    TSym String              |
+    TVar String              |
+    TAll                     |
+    TFieldRef String         |
+    TInt Int                 |
+    TSelect                  |
+    TFrom                    |
     TWhere deriving (Eq,Show)
 
 }
