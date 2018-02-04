@@ -17,9 +17,9 @@ tokens :-
     let                                               { \s -> TLet }
     in                                                { \s -> TIn }
     $digit+                                           { \s -> TInt (read s) }
-    \<\= | \>\= | [\>\<\=\+\-\*\/\(\)]                { \s -> TSym s }
-    $alpha [$alpha $digit \_ \']*                     { \s -> TVar s }
     \*                                                { \s -> TAll }
+    \<\= | \>\= | [\>\<\=\+\-\/\(\)]                  { \s -> TSym s }
+    $alpha [$alpha $digit \_ \']*                     { \s -> TVar s }
     \. [$alpha $digit \_ \']*                         { \s -> TFieldRef (tail s) }
 
 {

@@ -15,7 +15,7 @@ import Scanner
 %%
 
 Query :
-    Select SelectExpr               { Query }
+    Select SelectExpr               { Query $1 $2 }
 
 Select :
     "Select"                        { SSelect }
@@ -29,9 +29,10 @@ SelectExpr :
 parseError :: [Token] -> a
 parseError _ = error "Parse error"
 
-data Query = Query deriving Show
-data SSelect = SSelect deriving Show
+data Query = Query SSelect Exp deriving (Show, Eq)
+data SSelect = SSelect deriving (Show, Eq)
 data Exp = ExpField String | ExpAll
+    deriving (Show, Eq)
 
 }
 

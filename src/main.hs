@@ -4,4 +4,8 @@ import Scanner
 
 main = do
     s <- getContents
-    print (alexScanTokens s)
+    let tokens = (alexScanTokens s)
+    print tokens
+    let parseTree = csvql tokens
+    putStrLn ("parseTree: " ++ show(parseTree))
+    print "done"
