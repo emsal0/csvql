@@ -1,4 +1,4 @@
 *.swp
 *.swo
-.stack_work
+.stack_work/
 dist
