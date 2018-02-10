@@ -14,6 +14,8 @@ tokens :-
     SELECT | select                                   { \s -> TSelect }
     WHERE | where                                     { \s -> TWhere }
     FROM | from                                       { \s -> TFrom }
+    AND | and                                         { \s -> TAnd }
+    OR | or                                           { \s -> TOr }
     let                                               { \s -> TLet }
     in                                                { \s -> TIn }
     $digit+                                           { \s -> TInt (read s) }
@@ -36,6 +38,8 @@ data Token =
     TInt Int                 |
     TSelect                  |
     TFrom                    |
+    TAnd                     |
+    TOr                      |
     TWhere deriving (Eq,Show)
 
 }
