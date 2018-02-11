@@ -18,5 +18,6 @@ executable csvql
                     ,   bytestring
                     ,   array
                     ,   parsec
+                    ,   cassava
     build-tools:        happy, alex 
     default-language:   Haskell2010

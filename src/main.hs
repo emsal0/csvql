@@ -1,6 +1,10 @@
 module Main where
 import Parser
 import Scanner
+import Data.Csv
+import qualified Data.ByteString.Lazy as BL
+
+-- evaluate :: Query -> something idk
 
 main = do
     s <- getContents
