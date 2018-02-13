@@ -6,8 +6,8 @@ import qualified Data.ByteString.Lazy as BL
 
 evaluate :: Query -> IO BL.ByteString
 
-evaluate (Query selectExp (FromExp f) ) = do
-    csvData <- BL.readFile (f ++ ".csv")
+evaluate (Query selectExp (FromExp (SourceExp f)) ) = do
+    csvData <- BL.readFile (f)
     return csvData
 
 evaluate (FilteredQuery selectExp fromExp whereExp) = return BL.empty
