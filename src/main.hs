@@ -12,6 +12,16 @@ evaluate (Query selectExp (FromExp (SourceExp f)) ) = do
 
 evaluate (FilteredQuery selectExp fromExp whereExp) = return BL.empty
 
+-- Where expressions
+evaluateWhere :: WhereExp -> Record -> Bool
+evaluateWhere whereExp = \r -> True
+
+-- Clauses
+evaluateClause :: Clause -> Either String Int -> Bool
+
+evaluateClause c = \c -> True
+
+
 main :: IO ()
 main = do
     s <- getContents
