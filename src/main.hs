@@ -10,7 +10,7 @@ evaluate :: Query -> IO String
 
 evaluate (Query selectExp (FromExp (SourceExp f)) ) = do
     csvData <- BL.readFile (f)
-    case decode NoHeader csvData :: Either String (V.Vector (V.Vector ByteString)) of
+    case decode HasHeader csvData :: Either String (V.Vector (V.Vector ByteString)) of
         Left err -> return err
         Right v -> return (show v)
 
